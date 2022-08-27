@@ -1,0 +1,99 @@
+{% extends 'enhancer/base.html' %}
+{% block content %}
+<div class="text-center">
+    <div class="img"><img src="{{ user.profile.image.url }}" class="rounded" style="max-height: 360px; max-width: 640px; margin-top: 5px; border: 5px solid #427;"></div>
+</div>
+<br>
+<section class="vh-50 gradient-custom">
+    <div class="container h-50">
+      <div class="row justify-content-center align-items-center h-50">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Select Model and Upscale Factor</h3>
+              <form method="POST" >
+                {% csrf_token %}
+                    <h6 class="mb-2 pb-1">Model </h6>
+  
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="EDSR"
+                        value="edsr" onclick="display();" required/>
+                      <label class="form-check-label" for="EDSR">EDSR</label>
+                    </div>
+  
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="ESPCN"
+                        value="espcn" onclick="display();" required/>
+                      <label class="form-check-label" for="ESPCN">ESPCN</label>
+                    </div>
+  
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="FSRCNN"
+                        value="fsrcnn" onclick="display();" required/>
+                      <label class="form-check-label" for="FSRCNN">FSRCNN</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LapSRN"
+                          value="lapsrn" onclick="display();" required/>
+                        <label class="form-check-label" for="LapSRN">LapSRN</label>
+                      </div>
+                    <br>
+                    <br>
+
+                    
+                   
+                        <label class="form-label select-label">Choose Upscale Factor :</label>
+                        <br>
+                        <select class="select form-control-lg" name="theOptions" required>
+                            <option disabled="true" selected>Select Upscale Factor</option>
+                            <option value="2" id="x2">x2</option>
+                            <option value="3" id="x3">x3</option>
+                            <option value="4" id="x4">x4</option>
+                            <option value="8" id="x8">x8</option>
+                        </select>
+                    
+               
+  
+                <div class="mt-4 pt-2">
+                  <button type="submit" name="to_upscale" class="btn btn-primary btn-lg">Upscale</button> 
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<script>
+        function display() { 
+            if(document.getElementById('EDSR').checked) {
+                document.getElementById("x8").disabled = true;  
+                document.getElementById("x4").disabled = false;
+                document.getElementById("x3").disabled = false;
+                document.getElementById("x2").disabled = false;
+            }
+            else if(document.getElementById('ESPCN').checked) {
+                document.getElementById("x8").disabled = true;  
+                document.getElementById("x4").disabled = false;
+                document.getElementById("x3").disabled = false;
+                document.getElementById("x2").disabled = false; 
+            }
+            else if(document.getElementById('FSRCNN').checked) {
+                document.getElementById("x8").disabled = true;
+                document.getElementById("x4").disabled = false;
+                document.getElementById("x3").disabled = false;
+                document.getElementById("x2").disabled = false;    
+            }
+            else if(document.getElementById('LapSRN').checked){
+                document.getElementById("x8").disabled = false;  
+                document.getElementById("x4").disabled = false;
+                document.getElementById("x3").disabled = true;
+                document.getElementById("x2").disabled = false;
+            }
+        }
+</script>
+{% endblock content %}
